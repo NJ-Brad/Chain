@@ -92,6 +92,7 @@
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(864, 238);
             dataGridView1.TabIndex = 1;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             dataGridView1.ColumnHeaderMouseClick += dataGridView1_ColumnHeaderMouseClick;
             dataGridView1.DataBindingComplete += dataGridView1_DataBindingComplete;
             dataGridView1.RowsAdded += dataGridView1_RowsAdded;

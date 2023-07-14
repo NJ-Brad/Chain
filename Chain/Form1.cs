@@ -47,7 +47,7 @@ namespace Chain
             dataGridView1.Columns.Clear();
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Chain", DataPropertyName = "Chain", ReadOnly = true, Visible = true });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Description", DataPropertyName = "DisplayText", ReadOnly = true, Visible = true });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Link", DataPropertyName = nameof(ChainLink.Url), ReadOnly = true, Visible = true });
+            dataGridView1.Columns.Add(new DataGridViewLinkColumn() { HeaderText = "Link", DataPropertyName = nameof(ChainLink.Url), ReadOnly = true, Visible = true });
 
             dataGridView1.Columns[0].SortMode =
                         DataGridViewColumnSortMode.Programmatic;
@@ -382,6 +382,19 @@ namespace Chain
         private void dataGridView1_DragOver(object sender, DragEventArgs e)
         {
 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // https://stackoverflow.com/questions/3577297/how-to-handle-click-event-in-button-column-in-datagridview
+            var senderGrid = sender as DataGridView;
+
+            if ((senderGrid != null) &&
+                (senderGrid.Columns[e.ColumnIndex] is DataGridViewLinkColumn &&
+                e.RowIndex >= 0))
+            {
+                Process.Start(new ProcessStartInfo(senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) { UseShellExecute = true });
+            }
         }
     }
 }
